@@ -474,21 +474,22 @@ p { line-height: 1.75; font-weight: 300; font-size: 0.95rem; }
   font-weight: 400;
 }
 .years-badge {
-  position: absolute; top: 32px; right: 32px;
-  width: 90px; height: 90px;
+  position: static;
+  width: 80px; height: 80px;
+  flex-shrink: 0;
   background: linear-gradient(135deg, var(--gold), var(--gold-dark));
   border-radius: 50%;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  box-shadow: 0 0 30px rgba(201,168,76,0.4);
+  box-shadow: 0 0 24px rgba(201,168,76,0.4);
 }
 .years-num {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.8rem; font-weight: 700;
+  font-size: 1.6rem; font-weight: 700;
   color: var(--dark); line-height: 1;
 }
 .years-label {
-  font-size: 0.55rem; font-weight: 600;
+  font-size: 0.5rem; font-weight: 600;
   color: var(--dark); text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -950,9 +951,16 @@ footer {
     box-shadow: none;
     padding-left: 16px;
   }
-  .hero-content { grid-template-columns: 1fr; gap: 40px; text-align: center; }
-  .hero-visual { display: none; }
+  .hero-content { grid-template-columns: 1fr; gap: 24px; text-align: center; }
+  /* Show the hero image on mobile — place it above the text */
+  .hero-visual { display: flex; order: -1; justify-content: center; margin-bottom: 8px; }
+  .hero-img-container { width: 170px; height: 210px; }
+  /* Hide specialty tags to save space */
+  .hero-specialties { display: none; }
   .hero-stats { justify-content: center; }
+  /* Shrink compass so it no longer covers the CTA buttons */
+  .vastu-compass-wrap { width: 72px; height: 72px; right: 4%; top: auto; bottom: 10%; transform: none; opacity: 0.4; }
+  #vastuCompassCanvas { width: 72px; height: 72px; }
   .about-grid, .services-grid, .testimonials-track,
   .contact-grid, .expertise-grid, .course-details-grid {
     grid-template-columns: 1fr;
@@ -960,7 +968,6 @@ footer {
   .contact-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; gap: 32px; }
   .why-section { padding: 40px 24px; }
-  .hero-img-container { width: 260px; height: 320px; }
   .courses-tabs { flex-wrap: wrap; border-radius: 8px; }
   .course-tab { flex: 1; min-width: 100px; text-align: center; padding: 12px 16px; font-size: 0.75rem; }
   .learn-grid { grid-template-columns: 1fr; }
@@ -2014,8 +2021,10 @@ body:hover #cursor-ring { opacity: 1; }
       <div class="about-card-3d animate-on-scroll">
         <div class="about-card-inner">
           <div class="about-card-glow"></div>
-          <div class="years-badge"><span class="years-num">10+</span><span class="years-label">Years</span></div>
-          <h3 style="color:var(--gold-light);margin-bottom:16px;">Areas of Expertise</h3>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px;">
+            <h3 style="color:var(--gold-light);margin:0;">Areas of Expertise</h3>
+            <div class="years-badge"><span class="years-num">10+</span><span class="years-label">Years</span></div>
+          </div>
           <p style="color:rgba(255,255,255,0.65);font-size:0.85rem;">A multi-disciplinary practitioner offering comprehensive holistic solutions for every aspect of life.</p>
           <div class="expertise-tags">
             <span class="exp-tag">Vastu Shastra</span>
