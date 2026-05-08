@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Block unnecessary files
+Disallow: /cdn-cgi/
+Disallow: /*.json$
+Disallow: /*?*utm_*
+
+# Sitemap location
+Sitemap: https://shahbhumi.com/sitemap.xml
