@@ -17,7 +17,7 @@ export default function Hero() {
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
+    }, 4000);
     return () => clearInterval(interval);
   }, [slides.length]);
 
@@ -152,17 +152,11 @@ export default function Hero() {
         .hero-img-frame {
           position: absolute; inset: 0;
           border: 2px solid #C9A84C;
-          border-radius: 4px;
-          transform: rotate(3deg);
-          transition: transform 0.5s;
+          border-radius: 8px;
+          transform: translate(-12px, 12px);
+          transition: transform 0.5s ease-out;
         }
-        .hero-img-frame-2 {
-          position: absolute; inset: 8px;
-          border: 1px solid rgba(201,168,76,0.4);
-          border-radius: 4px;
-          transform: rotate(-1deg);
-        }
-        .hero-img-container:hover .hero-img-frame { transform: rotate(0deg); }
+        .hero-img-container:hover .hero-img-frame { transform: translate(-16px, 16px); }
       `}</style>
 
       {/* Background Slides */}
@@ -263,9 +257,8 @@ export default function Hero() {
           transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
         >
           <div className="hero-img-container w-[170px] h-[210px] md:w-[320px] md:h-[400px]">
-            <div className="hero-img-frame-2"></div>
             <div className="hero-img-frame"></div>
-            <img src={heroImg.src} alt="Bhumi Shah" className="absolute inset-0 w-full h-full object-cover rounded z-10" />
+            <img src={heroImg.src} alt="Bhumi Shah" className="absolute inset-0 w-full h-full object-cover rounded-lg z-10 shadow-lg" />
           </div>
           
           <div className="hidden md:flex flex-wrap gap-2 justify-center">
