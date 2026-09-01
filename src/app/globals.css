@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-gold: #C9A84C;
+  --color-gold-light: #E8C96D;
+  --color-gold-dark: #9A7A2E;
+  --color-cream: #f0f9f4;
+  --color-ivory: #e6f4ed;
+  --color-dark: #0a2618;
+  --color-dark2: #0f3320;
+  --color-text-main: #0d3320;
+  --color-text-light: #3a6e52;
+  --color-emerald: #0d5c30;
+  --color-emerald-light: #1a7a43;
+  --color-emerald-dark: #082d18;
+  --color-emerald-deep: #041a0e;
+  
+  --font-serif: var(--font-cormorant);
+  --font-sans: var(--font-jost);
+}
+
+:root {
+  --background: #f0f9f4;
+  --foreground: #0d3320;
+  --glass: rgba(220,255,235,0.08);
+  --glass-border: rgba(201,168,76,0.3);
+  --shadow: 0 8px 32px rgba(10,38,24,0.35);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(ellipse at 20% 50%, rgba(13,92,48,0.07) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(26,122,67,0.05) 0%, transparent 50%);
+}
+
+@keyframes floatParticle {
+  0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.6; }
+  100% { transform: translateY(-20px) translateX(30px); opacity: 0; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
