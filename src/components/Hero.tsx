@@ -256,7 +256,7 @@ export default function Hero() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
         >
-          <div className="hero-img-container w-[170px] h-[210px] md:w-[320px] md:h-[400px]">
+          <div className="hero-img-container relative w-[170px] h-[210px] md:w-[320px] md:h-[400px]">
             <div className="hero-img-frame"></div>
             <img src={heroImg.src} alt="Bhumi Shah" className="absolute inset-0 w-full h-full object-cover rounded-lg z-10 shadow-lg" />
           </div>
