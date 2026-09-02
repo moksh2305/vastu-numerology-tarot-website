@@ -207,12 +207,13 @@ const Services = () => {
           </p>
         </motion.div>
 
+        {/* Mobile Grid Layout (hidden on lg) */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:hidden"
         >
           {whyChooseUs.map((item, index) => (
             <motion.div
@@ -231,6 +232,75 @@ const Services = () => {
             </motion.div>
           ))}
         </motion.div>
+
+        {/* Desktop Radial Layout (hidden on < lg) */}
+        <div className="hidden lg:flex justify-center items-center relative w-full h-[850px] my-10">
+          
+          {/* SVG Background Lines & Circles */}
+          <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1000 1000">
+            {/* Concentric Circles */}
+            <circle cx="500" cy="500" r="200" fill="none" stroke="#c9a84c" strokeWidth="1" opacity="0.3" strokeDasharray="4 4" />
+            <circle cx="500" cy="500" r="300" fill="none" stroke="#c9a84c" strokeWidth="1" opacity="0.2" />
+            <circle cx="500" cy="500" r="400" fill="none" stroke="#c9a84c" strokeWidth="1" opacity="0.15" strokeDasharray="2 6" />
+            
+            {/* Radiating Lines & Dots */}
+            {whyChooseUs.map((_, i) => {
+              const angle = (i * 40 - 90) * (Math.PI / 180);
+              const x2 = 500 + Math.cos(angle) * 400;
+              const y2 = 500 + Math.sin(angle) * 400;
+              return (
+                <g key={`line-${i}`}>
+                  <line x1="500" y1="500" x2={x2} y2={y2} stroke="#c9a84c" strokeWidth="1" opacity="0.3" />
+                  <circle cx={500 + Math.cos(angle) * 200} cy={500 + Math.sin(angle) * 200} r="4" fill="#c9a84c" opacity="0.7" />
+                  <circle cx={500 + Math.cos(angle) * 300} cy={500 + Math.sin(angle) * 300} r="3" fill="#c9a84c" opacity="0.5" />
+                </g>
+              );
+            })}
+          </svg>
+
+          {/* Central Node */}
+          <div className="absolute z-20 w-[200px] h-[200px] rounded-full bg-gradient-to-br from-[#0a0a0a] to-[#1a1a1a] shadow-[0_0_50px_rgba(201,168,76,0.3)] flex flex-col items-center justify-center border-[6px] border-[#111] ring-2 ring-[#c9a84c]/30 backdrop-blur-md">
+            <div className="text-6xl font-serif text-[#c9a84c] flex items-center drop-shadow-[0_0_10px_rgba(201,168,76,0.4)]">
+              <span>B</span>
+              <span className="text-5xl">S</span>
+              <span className="text-[#c9a84c] text-4xl ml-1 leading-none font-sans font-light">+</span>
+            </div>
+            <div className="w-14 h-[1px] bg-[#c9a84c]/50 mt-4 mb-1.5"></div>
+            <div className="w-8 h-[1px] bg-[#c9a84c]/30"></div>
+          </div>
+
+          {/* Radial Cards */}
+          {whyChooseUs.map((item, i) => {
+            const angle = (i * 40 - 90) * (Math.PI / 180);
+            const radius = 350;
+            const x = Math.cos(angle) * radius;
+            const y = Math.sin(angle) * radius;
+            
+            return (
+              <motion.div
+                key={`radial-${i}`}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: i * 0.1, type: "spring", stiffness: 100 }}
+                className="absolute z-10 w-[210px] h-[150px] bg-[#FDF8F5] flex flex-col items-center justify-center text-center p-5 cursor-default hover:scale-110 transition-transform duration-300 drop-shadow-xl"
+                style={{
+                  left: `calc(50% + ${x}px)`,
+                  top: `calc(50% + ${y}px)`,
+                  transform: 'translate(-50%, -50%)',
+                  clipPath: 'polygon(5% 2%, 95% 0%, 100% 12%, 98% 50%, 100% 88%, 94% 100%, 6% 98%, 0% 88%, 2% 50%, 0% 12%)',
+                  boxShadow: 'inset 0 0 20px rgba(201,168,76,0.1)'
+                }}
+              >
+                <div className="text-[#082d18] mb-3 opacity-90 drop-shadow-sm">
+                  {item.icon}
+                </div>
+                <h4 className="text-[#082d18] font-serif font-bold text-sm mb-1.5">{item.title}</h4>
+                <p className="text-[#082d18]/70 text-[0.65rem] leading-snug font-medium max-w-[90%]">{item.desc}</p>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
       
       {/* Wave transition to next section (Tips) */}
