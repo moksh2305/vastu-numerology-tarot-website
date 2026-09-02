@@ -234,45 +234,44 @@ const Services = () => {
         </motion.div>
 
         {/* Desktop Radial Layout (hidden on < lg) */}
-        <div className="hidden lg:flex justify-center items-center relative w-full h-[850px] my-10">
+        <div className="hidden lg:flex justify-center items-center relative w-full h-[1000px] my-10">
           
           {/* SVG Background Lines & Circles */}
-          <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1000 1000">
+          <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1200 1200">
             {/* Concentric Circles */}
-            <circle cx="500" cy="500" r="200" fill="none" stroke="#c9a84c" strokeWidth="1" opacity="0.3" strokeDasharray="4 4" />
-            <circle cx="500" cy="500" r="300" fill="none" stroke="#c9a84c" strokeWidth="1" opacity="0.2" />
-            <circle cx="500" cy="500" r="400" fill="none" stroke="#c9a84c" strokeWidth="1" opacity="0.15" strokeDasharray="2 6" />
+            <circle cx="600" cy="600" r="240" fill="none" stroke="#c9a84c" strokeWidth="1.5" opacity="0.3" strokeDasharray="4 4" />
+            <circle cx="600" cy="600" r="360" fill="none" stroke="#c9a84c" strokeWidth="1" opacity="0.2" />
+            <circle cx="600" cy="600" r="480" fill="none" stroke="#c9a84c" strokeWidth="1" opacity="0.15" strokeDasharray="2 6" />
             
             {/* Radiating Lines & Dots */}
             {whyChooseUs.map((_, i) => {
               const angle = (i * 40 - 90) * (Math.PI / 180);
-              const x2 = 500 + Math.cos(angle) * 400;
-              const y2 = 500 + Math.sin(angle) * 400;
+              const x2 = 600 + Math.cos(angle) * 480;
+              const y2 = 600 + Math.sin(angle) * 480;
               return (
                 <g key={`line-${i}`}>
-                  <line x1="500" y1="500" x2={x2} y2={y2} stroke="#c9a84c" strokeWidth="1" opacity="0.3" />
-                  <circle cx={500 + Math.cos(angle) * 200} cy={500 + Math.sin(angle) * 200} r="4" fill="#c9a84c" opacity="0.7" />
-                  <circle cx={500 + Math.cos(angle) * 300} cy={500 + Math.sin(angle) * 300} r="3" fill="#c9a84c" opacity="0.5" />
+                  <line x1="600" y1="600" x2={x2} y2={y2} stroke="#c9a84c" strokeWidth="1" opacity="0.3" />
+                  <circle cx={600 + Math.cos(angle) * 240} cy={600 + Math.sin(angle) * 240} r="5" fill="#c9a84c" opacity="0.7" />
+                  <circle cx={600 + Math.cos(angle) * 360} cy={600 + Math.sin(angle) * 360} r="4" fill="#c9a84c" opacity="0.5" />
                 </g>
               );
             })}
           </svg>
 
           {/* Central Node */}
-          <div className="absolute z-20 w-[200px] h-[200px] rounded-full bg-gradient-to-br from-[#0a0a0a] to-[#1a1a1a] shadow-[0_0_50px_rgba(201,168,76,0.3)] flex flex-col items-center justify-center border-[6px] border-[#111] ring-2 ring-[#c9a84c]/30 backdrop-blur-md">
-            <div className="text-6xl font-serif text-[#c9a84c] flex items-center drop-shadow-[0_0_10px_rgba(201,168,76,0.4)]">
-              <span>B</span>
-              <span className="text-5xl">S</span>
-              <span className="text-[#c9a84c] text-4xl ml-1 leading-none font-sans font-light">+</span>
+          <div className="absolute z-20 w-[240px] h-[240px] rounded-full bg-gradient-to-br from-[#051109] to-[#12281a] shadow-[0_0_60px_rgba(201,168,76,0.35)] flex flex-col items-center justify-center border-[8px] border-[#0a1f12] ring-2 ring-[#c9a84c]/40 backdrop-blur-md">
+            <div className="relative text-[#c9a84c] flex items-center justify-center drop-shadow-[0_0_15px_rgba(201,168,76,0.5)] w-full h-[80px]">
+              <span className="absolute text-7xl font-serif right-1/2 translate-x-2 -translate-y-2 opacity-90">B</span>
+              <span className="absolute text-8xl font-serif left-1/2 -translate-x-4 z-10 text-[#e8c96d]">S</span>
             </div>
-            <div className="w-14 h-[1px] bg-[#c9a84c]/50 mt-4 mb-1.5"></div>
-            <div className="w-8 h-[1px] bg-[#c9a84c]/30"></div>
+            <div className="w-16 h-[1px] bg-[#c9a84c]/50 mt-8 mb-2"></div>
+            <div className="w-10 h-[1px] bg-[#c9a84c]/30"></div>
           </div>
 
           {/* Radial Cards */}
           {whyChooseUs.map((item, i) => {
             const angle = (i * 40 - 90) * (Math.PI / 180);
-            const radius = 350;
+            const radius = 420;
             const x = Math.cos(angle) * radius;
             const y = Math.sin(angle) * radius;
             
@@ -283,20 +282,20 @@ const Services = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.1, type: "spring", stiffness: 100 }}
-                className="absolute z-10 w-[210px] h-[150px] bg-[#FDF8F5] flex flex-col items-center justify-center text-center p-5 cursor-default hover:scale-110 transition-transform duration-300 drop-shadow-xl"
+                className="absolute z-10 w-[260px] h-[180px] bg-[#FDF8F5] flex flex-col items-center justify-center text-center p-6 cursor-default hover:scale-110 transition-transform duration-300 drop-shadow-2xl"
                 style={{
                   left: `calc(50% + ${x}px)`,
                   top: `calc(50% + ${y}px)`,
                   transform: 'translate(-50%, -50%)',
-                  clipPath: 'polygon(5% 2%, 95% 0%, 100% 12%, 98% 50%, 100% 88%, 94% 100%, 6% 98%, 0% 88%, 2% 50%, 0% 12%)',
-                  boxShadow: 'inset 0 0 20px rgba(201,168,76,0.1)'
+                  clipPath: 'polygon(4% 2%, 96% 0%, 100% 12%, 98% 50%, 100% 88%, 94% 100%, 6% 98%, 0% 88%, 2% 50%, 0% 12%)',
+                  boxShadow: 'inset 0 0 30px rgba(201,168,76,0.15)'
                 }}
               >
-                <div className="text-[#082d18] mb-3 opacity-90 drop-shadow-sm">
+                <div className="text-[#082d18] mb-4 opacity-90 drop-shadow-sm transform scale-110">
                   {item.icon}
                 </div>
-                <h4 className="text-[#082d18] font-serif font-bold text-sm mb-1.5">{item.title}</h4>
-                <p className="text-[#082d18]/70 text-[0.65rem] leading-snug font-medium max-w-[90%]">{item.desc}</p>
+                <h4 className="text-[#082d18] font-serif font-bold text-base mb-2">{item.title}</h4>
+                <p className="text-[#082d18]/70 text-[0.75rem] leading-relaxed font-medium max-w-[95%]">{item.desc}</p>
               </motion.div>
             );
           })}
