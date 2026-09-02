@@ -12,7 +12,8 @@ import {
   Triangle,
   Lightbulb,
   Layers,
-  Sparkles
+  Sparkles,
+  Flower2
 } from 'lucide-react';
 
 const Services = () => {
@@ -109,10 +110,15 @@ const Services = () => {
     { icon: <PenTool size={24} />, title: "Handwriting Analyst", desc: "Graphology and drawing analysis" },
     { icon: <Sparkles size={24} />, title: "Card & Logo Design", desc: "Professional design analysis" },
     { icon: <Triangle size={24} />, title: "Pyramid Solutions", desc: "Effective solutions through pyramids" },
-    { icon: <Star size={24} />, title: "10+ Years Experience", desc: "Decade of Vastu expertise" },
+    { icon: <Star size={24} />, title: "10+ Years Experience", desc: "A decade of Vastu expertise and trust" },
     { icon: <Lightbulb size={24} />, title: "Simple Upays", desc: "Practical, easy and effective remedies" },
-    { icon: <Layers size={24} />, title: "Multi-Disciplinary", desc: "Integrated solutions approach" }
+    { icon: <Layers size={24} />, title: "Multi-Disciplinary", desc: "Integrated solutions approach" },
+    { icon: <Flower2 size={24} />, title: "Holistic Approach", desc: "Mind, space and energy in perfect harmony" }
   ];
+
+  const leftItems = whyChooseUs.slice(0, 5);
+  const rightItems = whyChooseUs.slice(5, 10);
+  const yPositions = [60, 180, 300, 420, 540];
 
   return (
     <section id="services" className="relative w-full py-24 px-6 md:px-12 lg:px-24 bg-[#f0f9f4] text-[#082d18]">
@@ -233,76 +239,143 @@ const Services = () => {
           ))}
         </motion.div>
 
-        {/* Desktop Radial Layout (hidden on < lg) */}
-        <div className="hidden lg:flex justify-center items-center relative w-full h-[950px] my-10">
+        {/* Desktop Horizontal Tree Layout (hidden on < lg) */}
+        <div className="hidden lg:block relative w-[1000px] h-[600px] mx-auto mt-20 mb-8">
           
           {/* SVG Background Lines & Circles */}
-          <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1200 1200">
-            {/* Concentric Circles */}
-            <circle cx="600" cy="600" r="220" fill="none" stroke="#c9a84c" strokeWidth="1.5" opacity="0.3" strokeDasharray="4 4" />
-            <circle cx="600" cy="600" r="340" fill="none" stroke="#c9a84c" strokeWidth="1" opacity="0.2" />
-            <circle cx="600" cy="600" r="440" fill="none" stroke="#c9a84c" strokeWidth="1" opacity="0.15" strokeDasharray="2 6" />
-            
-            {/* Radiating Lines & Dots */}
-            {whyChooseUs.map((_, i) => {
-              const angle = (i * 40 - 90) * (Math.PI / 180);
-              const x2 = 600 + Math.cos(angle) * 440;
-              const y2 = 600 + Math.sin(angle) * 440;
+          <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1000 600">
+            {/* Left Lines */}
+            {yPositions.map((y, i) => {
+              const dx = -140; // 360 - 500
+              const dy = y - 300;
+              const len = Math.sqrt(dx*dx + dy*dy);
+              const cx = 500 + (dx/len) * 110;
+              const cy = 300 + (dy/len) * 110;
               return (
-                <g key={`line-${i}`}>
-                  <line x1="600" y1="600" x2={x2} y2={y2} stroke="#c9a84c" strokeWidth="1" opacity="0.3" />
-                  <circle cx={600 + Math.cos(angle) * 220} cy={600 + Math.sin(angle) * 220} r="5" fill="#c9a84c" opacity="0.7" />
-                  <circle cx={600 + Math.cos(angle) * 340} cy={600 + Math.sin(angle) * 340} r="4" fill="#c9a84c" opacity="0.5" />
+                <g key={`l-line-${i}`}>
+                  <polyline points={`320,${y} 360,${y} 500,300`} fill="none" stroke="#c9a84c" strokeWidth="1" opacity="0.4" />
+                  <circle cx="320" cy={y} r="3" fill="#c9a84c" />
+                  <circle cx="360" cy={y} r="3" fill="#c9a84c" />
+                  <circle cx={cx} cy={cy} r="4" fill="#c9a84c" />
                 </g>
-              );
+              )
+            })}
+            
+            {/* Right Lines */}
+            {yPositions.map((y, i) => {
+              const dx = 140; // 640 - 500
+              const dy = y - 300;
+              const len = Math.sqrt(dx*dx + dy*dy);
+              const cx = 500 + (dx/len) * 110;
+              const cy = 300 + (dy/len) * 110;
+              return (
+                <g key={`r-line-${i}`}>
+                  <polyline points={`680,${y} 640,${y} 500,300`} fill="none" stroke="#c9a84c" strokeWidth="1" opacity="0.4" />
+                  <circle cx="680" cy={y} r="3" fill="#c9a84c" />
+                  <circle cx="640" cy={y} r="3" fill="#c9a84c" />
+                  <circle cx={cx} cy={cy} r="4" fill="#c9a84c" />
+                </g>
+              )
             })}
           </svg>
 
           {/* Central Node */}
-          <div 
-            className="absolute z-20 w-[220px] h-[220px] rounded-full bg-gradient-to-br from-[#051109] to-[#12281a] shadow-[0_0_60px_rgba(201,168,76,0.35)] flex flex-col items-center justify-center border-[8px] border-[#0a1f12] ring-2 ring-[#c9a84c]/40 backdrop-blur-md"
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="absolute z-20 w-[220px] h-[220px] rounded-full bg-gradient-to-br from-[#051109] to-[#12281a] shadow-[0_0_40px_rgba(201,168,76,0.3)] flex flex-col items-center justify-center border-4 border-[#12281a] ring-2 ring-[#c9a84c]/50"
             style={{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}
           >
             <div className="relative text-[#c9a84c] flex items-center justify-center drop-shadow-[0_0_15px_rgba(201,168,76,0.5)] w-full h-[70px]">
-              <span className="absolute text-6xl font-serif right-1/2 translate-x-2 -translate-y-2 opacity-90">B</span>
-              <span className="absolute text-7xl font-serif left-1/2 -translate-x-3 z-10 text-[#e8c96d]">S</span>
+              <span className="absolute text-7xl font-serif right-1/2 translate-x-2 -translate-y-2 opacity-90">B</span>
+              <span className="absolute text-8xl font-serif left-1/2 -translate-x-3 z-10 text-[#e8c96d]">S</span>
             </div>
-            <div className="w-14 h-[1px] bg-[#c9a84c]/50 mt-6 mb-2"></div>
-            <div className="w-8 h-[1px] bg-[#c9a84c]/30"></div>
-          </div>
+          </motion.div>
 
-          {/* Radial Cards */}
-          {whyChooseUs.map((item, i) => {
-            const angle = (i * 40 - 90) * (Math.PI / 180);
-            const radius = 380;
-            const x = Math.cos(angle) * radius;
-            const y = Math.sin(angle) * radius;
-            
-            return (
-              <motion.div
-                key={`radial-${i}`}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.1, type: "spring", stiffness: 100 }}
-                className="absolute z-10 w-[240px] h-[160px] bg-[#FDF8F5] flex flex-col items-center justify-center text-center p-5 cursor-default hover:scale-110 transition-transform duration-300 drop-shadow-2xl"
-                style={{
-                  left: `calc(50% + ${x}px)`,
-                  top: `calc(50% + ${y}px)`,
-                  transform: 'translate(-50%, -50%)',
-                  clipPath: 'polygon(4% 2%, 96% 0%, 100% 12%, 98% 50%, 100% 88%, 94% 100%, 6% 98%, 0% 88%, 2% 50%, 0% 12%)',
-                  boxShadow: 'inset 0 0 30px rgba(201,168,76,0.15)'
-                }}
+          {/* Left Cards */}
+          {leftItems.map((item, i) => (
+            <motion.div 
+              key={`left-${i}`}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="absolute flex items-center justify-end drop-shadow-[0_5px_15px_rgba(201,168,76,0.15)] group"
+              style={{ left: 0, top: yPositions[i], transform: 'translateY(-50%)', width: '320px', height: '90px' }}
+            >
+              <div 
+                className="absolute -left-3 top-[-8px] z-10 w-[45px] h-[60px] bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] flex justify-center pt-3 text-[#c9a84c] font-serif font-bold text-lg drop-shadow-md border-b-2 border-r border-[#c9a84c]/30 group-hover:-translate-y-1 transition-transform"
+                style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 50% 85%, 0 100%)' }}
               >
-                <div className="text-[#082d18] mb-3 opacity-90 drop-shadow-sm transform scale-110">
+                0{i + 1}
+              </div>
+
+              <div 
+                className="relative w-full h-full bg-gradient-to-r from-white to-[#fdfdfd] flex items-center p-4 pl-14 pr-8 gap-4 border-l border-t border-[#c9a84c]/10"
+                style={{ clipPath: 'polygon(0 0, 93% 0, 100% 50%, 93% 100%, 0 100%)' }}
+              >
+                <div className="text-[#c9a84c]">
                   {item.icon}
                 </div>
-                <h4 className="text-[#082d18] font-serif font-bold text-[0.95rem] mb-1.5">{item.title}</h4>
-                <p className="text-[#082d18]/70 text-[0.7rem] leading-relaxed font-medium max-w-[95%]">{item.desc}</p>
-              </motion.div>
-            );
-          })}
+                <div className="flex flex-col">
+                  <h4 className="text-[#082d18] font-serif font-bold text-sm mb-1">{item.title}</h4>
+                  <p className="text-[#082d18]/60 text-[0.65rem] font-medium leading-tight">{item.desc}</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+
+          {/* Right Cards */}
+          {rightItems.map((item, i) => (
+            <motion.div 
+              key={`right-${i}`}
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="absolute flex items-center drop-shadow-[0_5px_15px_rgba(201,168,76,0.15)] group"
+              style={{ left: '680px', top: yPositions[i], transform: 'translateY(-50%)', width: '320px', height: '90px' }}
+            >
+              <div 
+                className="relative w-full h-full bg-gradient-to-l from-white to-[#fdfdfd] flex items-center p-4 pr-14 pl-10 gap-4 border-r border-t border-[#c9a84c]/10"
+                style={{ clipPath: 'polygon(7% 0, 100% 0, 100% 100%, 7% 100%, 0 50%)' }}
+              >
+                <div className="text-[#c9a84c] ml-2">
+                  {item.icon}
+                </div>
+                <div className="flex flex-col">
+                  <h4 className="text-[#082d18] font-serif font-bold text-sm mb-1">{item.title}</h4>
+                  <p className="text-[#082d18]/60 text-[0.65rem] font-medium leading-tight">{item.desc}</p>
+                </div>
+
+                <div 
+                  className="absolute -right-3 top-[-8px] z-10 w-[45px] h-[60px] bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] flex justify-center pt-3 text-[#c9a84c] font-serif font-bold text-lg drop-shadow-md border-b-2 border-l border-[#c9a84c]/30 group-hover:-translate-y-1 transition-transform"
+                  style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 50% 85%, 0 100%)' }}
+                >
+                  {i + 6 < 10 ? `0${i + 6}` : '10'}
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
+
+        {/* Quote Block (Desktop Only) */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="hidden lg:flex max-w-[700px] mx-auto mb-16 p-6 border border-[#c9a84c]/30 bg-[#fdf8f5] items-center gap-6 rounded-lg relative drop-shadow-sm"
+        >
+          <div className="text-6xl font-serif text-[#c9a84c] leading-none pt-4">“</div>
+          <div className="flex-1">
+            <p className="text-[#082d18]/80 font-medium text-sm">
+              Blending ancient wisdom with modern understanding to create meaningful transformations.
+            </p>
+          </div>
+        </motion.div>
       </div>
       
       {/* Wave transition to next section (Tips) */}
