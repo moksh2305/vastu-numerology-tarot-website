@@ -285,8 +285,7 @@ const Services = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="absolute z-20 w-[220px] h-[220px] rounded-full bg-gradient-to-br from-[#051109] to-[#12281a] shadow-[0_0_40px_rgba(201,168,76,0.3)] flex flex-col items-center justify-center border-4 border-[#12281a] ring-2 ring-[#c9a84c]/50"
-            style={{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}
+            className="absolute z-20 w-[220px] h-[220px] rounded-full bg-gradient-to-br from-[#051109] to-[#12281a] shadow-[0_0_40px_rgba(201,168,76,0.3)] flex flex-col items-center justify-center border-4 border-[#12281a] ring-2 ring-[#c9a84c]/50 left-1/2 top-1/2 -ml-[110px] -mt-[110px]"
           >
             <div className="relative text-[#c9a84c] flex items-center justify-center drop-shadow-[0_0_15px_rgba(201,168,76,0.5)] w-full h-[70px]">
               <span className="absolute text-7xl font-serif right-1/2 translate-x-2 -translate-y-2 opacity-90">B</span>
@@ -339,6 +338,13 @@ const Services = () => {
               style={{ left: '680px', top: yPositions[i], transform: 'translateY(-50%)', width: '320px', height: '90px' }}
             >
               <div 
+                className="absolute -right-3 top-[-8px] z-10 w-[45px] h-[60px] bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] flex justify-center pt-3 text-[#c9a84c] font-serif font-bold text-lg drop-shadow-md border-b-2 border-l border-[#c9a84c]/30 group-hover:-translate-y-1 transition-transform"
+                style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 50% 85%, 0 100%)' }}
+              >
+                {i + 6 < 10 ? `0${i + 6}` : '10'}
+              </div>
+
+              <div 
                 className="relative w-full h-full bg-gradient-to-l from-white to-[#fdfdfd] flex items-center p-4 pr-14 pl-10 gap-4 border-r border-t border-[#c9a84c]/10"
                 style={{ clipPath: 'polygon(7% 0, 100% 0, 100% 100%, 7% 100%, 0 50%)' }}
               >
@@ -348,13 +354,6 @@ const Services = () => {
                 <div className="flex flex-col">
                   <h4 className="text-[#082d18] font-serif font-bold text-sm mb-1">{item.title}</h4>
                   <p className="text-[#082d18]/60 text-[0.65rem] font-medium leading-tight">{item.desc}</p>
-                </div>
-
-                <div 
-                  className="absolute -right-3 top-[-8px] z-10 w-[45px] h-[60px] bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] flex justify-center pt-3 text-[#c9a84c] font-serif font-bold text-lg drop-shadow-md border-b-2 border-l border-[#c9a84c]/30 group-hover:-translate-y-1 transition-transform"
-                  style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 50% 85%, 0 100%)' }}
-                >
-                  {i + 6 < 10 ? `0${i + 6}` : '10'}
                 </div>
               </div>
             </motion.div>
