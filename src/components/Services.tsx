@@ -366,7 +366,7 @@ const Services = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="hidden lg:flex max-w-[700px] mx-auto mt-12 mb-16 p-6 border border-[#c9a84c]/30 bg-[#fdf8f5] items-center gap-6 rounded-lg relative drop-shadow-sm"
+          className="hidden lg:flex max-w-[700px] mx-auto mt-28 mb-16 p-6 border border-[#c9a84c]/30 bg-[#fdf8f5] items-center gap-6 rounded-lg relative drop-shadow-sm"
         >
           <div className="text-6xl font-serif text-[#c9a84c] leading-none pt-4">“</div>
           <div className="flex-1">
