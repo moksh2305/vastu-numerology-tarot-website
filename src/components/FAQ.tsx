@@ -77,7 +77,7 @@ export default function FAQ() {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-16 gap-y-8">
+        <div className="flex flex-col gap-y-4 max-w-4xl mx-auto">
           {faqs.map((faq, index) => (
             <div 
               key={index}
