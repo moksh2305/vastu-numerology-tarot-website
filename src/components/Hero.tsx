@@ -1,8 +1,28 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform, animate, useInView } from 'framer-motion';
 
 import heroImg from '../assets/hero.jpg';
+
+function AnimatedNumber({ value, suffix }: { value: number, suffix: string }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const motionValue = useMotionValue(0);
+  const rounded = useTransform(motionValue, (latest) => Math.round(latest));
+
+  useEffect(() => {
+    if (isInView) {
+      const controls = animate(motionValue, value, { duration: 2.5, ease: "easeOut" });
+      return controls.stop;
+    }
+  }, [isInView, motionValue, value]);
+
+  return (
+    <span ref={ref}>
+      <motion.span>{rounded}</motion.span>{suffix}
+    </span>
+  );
+}
 
 export default function Hero() {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -234,12 +254,12 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.8 }}
           >
             <div className="text-center">
-              <div className="font-serif text-[2rem] font-bold text-[#E8C96D] leading-none" style={{ fontFamily: "'Cormorant Garamond', serif" }}>10+</div>
+              <div className="font-serif text-[2rem] font-bold text-[#E8C96D] leading-none" style={{ fontFamily: "'Cormorant Garamond', serif" }}><AnimatedNumber value={10} suffix="+" /></div>
               <div className="text-[0.7rem] tracking-widest text-white/50 uppercase mt-1">Years</div>
             </div>
             <div className="w-[1px] bg-white/15"></div>
             <div className="text-center">
-              <div className="font-serif text-[2rem] font-bold text-[#E8C96D] leading-none" style={{ fontFamily: "'Cormorant Garamond', serif" }}>1000+</div>
+              <div className="font-serif text-[2rem] font-bold text-[#E8C96D] leading-none" style={{ fontFamily: "'Cormorant Garamond', serif" }}><AnimatedNumber value={1000} suffix="+" /></div>
               <div className="text-[0.7rem] tracking-widest text-white/50 uppercase mt-1">Clients</div>
             </div>
             <div className="w-[1px] bg-white/15"></div>
