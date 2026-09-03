@@ -5,20 +5,16 @@ import { motion, useMotionValue, useTransform, animate, useInView } from 'framer
 import heroImg from '../assets/hero.jpg';
 
 function AnimatedNumber({ value, suffix }: { value: number, suffix: string }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
   const motionValue = useMotionValue(0);
   const rounded = useTransform(motionValue, (latest) => Math.round(latest));
 
   useEffect(() => {
-    if (isInView) {
-      const controls = animate(motionValue, value, { duration: 2.5, ease: "easeOut" });
-      return controls.stop;
-    }
-  }, [isInView, motionValue, value]);
+    const controls = animate(motionValue, value, { duration: 2.5, ease: "easeOut", delay: 0.2 });
+    return controls.stop;
+  }, [motionValue, value]);
 
   return (
-    <span ref={ref}>
+    <span>
       <motion.span>{rounded}</motion.span>{suffix}
     </span>
   );
