@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
+import Awards from "@/components/Awards";
 import Services from "@/components/Services";
 import VastuTips from "@/components/VastuTips";
 import Courses from "@/components/Courses";
@@ -17,6 +18,7 @@ export default function Home() {
       <ProgressBar />
       <Navbar />
       <Hero />
+      <Awards />
       <About />
       <Services />
       <VastuTips />
