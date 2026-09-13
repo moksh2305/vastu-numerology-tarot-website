@@ -28,12 +28,12 @@ export default function Awards() {
               transition={{ duration: 0.6, delay: index * 0.2 }}
               className="relative group"
             >
-              <div className="absolute inset-0 bg-gradient-to-tr from-[#C9A84C] to-[#E8C96D] rounded-xl blur opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
-              <div className="relative bg-white p-2 rounded-xl border border-[#C9A84C]/20 shadow-xl overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#C9A84C] to-[#E8C96D] rounded-2xl blur opacity-10 group-hover:opacity-30 transition-opacity duration-500"></div>
+              <div className="relative bg-white/5 backdrop-blur-md p-4 rounded-2xl border border-[#C9A84C]/30 shadow-2xl overflow-hidden flex items-center justify-center h-48 md:h-56 w-full">
                 <img 
                   src={award.src} 
                   alt={award.alt} 
-                  className="h-32 md:h-40 w-auto object-contain rounded-lg transform group-hover:scale-105 transition-transform duration-500"
+                  className="max-h-full max-w-full object-contain rounded-lg transform group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
             </motion.div>
