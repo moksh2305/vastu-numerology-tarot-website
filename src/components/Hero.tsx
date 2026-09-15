@@ -202,7 +202,7 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <motion.h1 
-            className="text-[#cc1f1f] font-light mb-4 text-5xl md:text-7xl lg:text-[4.5rem] leading-[1.1]"
+            className="text-[#cc1f1f] font-medium mb-4 text-5xl md:text-7xl lg:text-[4.5rem] leading-[1.1]"
             style={{ textShadow: '0 0 60px rgba(204,31,31,0.35)', fontFamily: "'Cormorant Garamond', serif" }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
