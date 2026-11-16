@@ -18,37 +18,50 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    try {
-      const BASE_COUNT = 3500;
-      // Start reference epoch
-      const START_DATE = new Date('2026-11-16T00:00:00Z').getTime();
-      const now = Date.now();
-      
-      // Calculate realistic organic visitor growth based on elapsed time (~1 visitor every 1-2 hours)
-      const hoursElapsed = Math.max(0, Math.floor((now - START_DATE) / (1000 * 60 * 60)));
-      const timeIncrement = Math.floor(hoursElapsed * 0.75);
+    let isMounted = true;
 
-      const storedCount = localStorage.getItem('bhumi_visitor_count');
-      let currentCount = storedCount ? parseInt(storedCount, 10) : (BASE_COUNT + timeIncrement);
+    async function syncVisitorCount() {
+      try {
+        const sessionKey = 'bhumi_visited_session';
+        const hasVisitedThisSession = Boolean(sessionStorage.getItem(sessionKey));
+        
+        // If first visit in this session, trigger global increment
+        const endpoint = hasVisitedThisSession ? '/api/visitors' : '/api/visitors?inc=true';
+        
+        if (!hasVisitedThisSession) {
+          sessionStorage.setItem(sessionKey, 'true');
+        }
 
-      if (isNaN(currentCount) || currentCount < BASE_COUNT) {
-        currentCount = BASE_COUNT + timeIncrement;
+        const res = await fetch(endpoint, { cache: 'no-store' });
+        if (res.ok) {
+          const data = await res.json();
+          if (isMounted && typeof data.count === 'number') {
+            setVisitorCount(data.count);
+            localStorage.setItem('bhumi_last_known_visitors', data.count.toString());
+            return;
+          }
+        }
+      } catch (err) {
+        console.error('Visitor counter sync error:', err);
       }
 
-      // Increment count on each new browser session
-      const sessionKey = 'bhumi_visited_session';
-      if (!sessionStorage.getItem(sessionKey)) {
-        currentCount += 1;
-        sessionStorage.setItem(sessionKey, 'true');
-        localStorage.setItem('bhumi_visitor_count', currentCount.toString());
-      } else {
-        localStorage.setItem('bhumi_visitor_count', currentCount.toString());
+      // Fallback to cached count if offline or network error
+      if (isMounted) {
+        const cached = localStorage.getItem('bhumi_last_known_visitors');
+        if (cached) {
+          const num = parseInt(cached, 10);
+          if (!isNaN(num) && num >= 3500) {
+            setVisitorCount(num);
+          }
+        }
       }
-
-      setVisitorCount(currentCount);
-    } catch {
-      setVisitorCount(3500);
     }
+
+    syncVisitorCount();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const navLinks = [
