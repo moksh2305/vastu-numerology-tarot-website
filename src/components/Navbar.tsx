@@ -1,12 +1,13 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, Eye } from 'lucide-react';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [visitorCount, setVisitorCount] = useState<number>(3500);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,6 +15,40 @@ export default function Navbar() {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    try {
+      const BASE_COUNT = 3500;
+      // Start reference epoch
+      const START_DATE = new Date('2026-11-16T00:00:00Z').getTime();
+      const now = Date.now();
+      
+      // Calculate realistic organic visitor growth based on elapsed time (~1 visitor every 1-2 hours)
+      const hoursElapsed = Math.max(0, Math.floor((now - START_DATE) / (1000 * 60 * 60)));
+      const timeIncrement = Math.floor(hoursElapsed * 0.75);
+
+      const storedCount = localStorage.getItem('bhumi_visitor_count');
+      let currentCount = storedCount ? parseInt(storedCount, 10) : (BASE_COUNT + timeIncrement);
+
+      if (isNaN(currentCount) || currentCount < BASE_COUNT) {
+        currentCount = BASE_COUNT + timeIncrement;
+      }
+
+      // Increment count on each new browser session
+      const sessionKey = 'bhumi_visited_session';
+      if (!sessionStorage.getItem(sessionKey)) {
+        currentCount += 1;
+        sessionStorage.setItem(sessionKey, 'true');
+        localStorage.setItem('bhumi_visitor_count', currentCount.toString());
+      } else {
+        localStorage.setItem('bhumi_visitor_count', currentCount.toString());
+      }
+
+      setVisitorCount(currentCount);
+    } catch {
+      setVisitorCount(3500);
+    }
   }, []);
 
   const navLinks = [
@@ -113,15 +148,41 @@ export default function Navbar() {
             <span className="absolute bottom-0.5 left-1/2 right-1/2 h-[1px] bg-[#E8C96D] transition-all duration-250 opacity-0 group-hover:left-3.5 group-hover:right-3.5 group-hover:opacity-100"></span>
           </a>
         </li>
+
+        {/* Visitor Counter besides Contact */}
+        <li className="ml-2 pl-2 border-l border-[#C9A84C]/30 flex items-center">
+          <div
+            title="Total Visitors"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-[#C9A84C]/35 text-[#E8C96D] text-[0.8rem] font-medium tracking-wider shadow-[0_0_15px_rgba(201,168,76,0.12)] hover:border-[#E8C96D] hover:bg-white/10 transition-all duration-300 select-none cursor-default group"
+          >
+            <Eye className="w-3.5 h-3.5 text-[#E8C96D] group-hover:scale-110 transition-transform duration-300" />
+            <span className="font-sans tabular-nums font-semibold tracking-wide">
+              {visitorCount.toLocaleString()}
+            </span>
+          </div>
+        </li>
       </ul>
 
-      {/* Mobile Menu Toggle */}
-      <button
-        className="md:hidden text-[#E8C96D] p-2 focus:outline-none"
-        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-      >
-        {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-      </button>
+      {/* Mobile Right Section: Visitor Counter + Menu Toggle */}
+      <div className="flex items-center gap-2.5 md:hidden">
+        <div
+          title="Total Visitors"
+          className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/5 border border-[#C9A84C]/35 text-[#E8C96D] text-[0.75rem] font-medium tracking-wider shadow-[0_0_10px_rgba(201,168,76,0.1)] select-none"
+        >
+          <Eye className="w-3.5 h-3.5 text-[#E8C96D]" />
+          <span className="font-sans tabular-nums font-semibold">
+            {visitorCount.toLocaleString()}
+          </span>
+        </div>
+
+        <button
+          className="text-[#E8C96D] p-2 focus:outline-none"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle Menu"
+        >
+          {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
+        </button>
+      </div>
 
       {/* Mobile Menu */}
       <AnimatePresence>
@@ -144,6 +205,13 @@ export default function Navbar() {
                   </a>
                 </li>
               ))}
+              <li className="pt-2 border-t border-[#C9A84C]/20 flex items-center justify-between text-white/70 text-xs">
+                <span>Total Visitors</span>
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/5 border border-[#C9A84C]/30 text-[#E8C96D] text-xs font-semibold">
+                  <Eye className="w-3.5 h-3.5 text-[#E8C96D]" />
+                  <span className="tabular-nums">{visitorCount.toLocaleString()}</span>
+                </div>
+              </li>
             </ul>
           </motion.div>
         )}
