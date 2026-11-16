@@ -81,8 +81,14 @@ export default function Navbar() {
     >
       <a href="#home" className="flex items-center gap-3 no-underline">
         <img
-          src="https://vividspaces.solutions/wp-content/uploads/2024/11/BSDL-Logo-1024x1024.png"
-          alt="Logo"
+          src="/logo.png"
+          alt="Bhumi Shah Logo"
+          className="w-[45px] h-[45px] rounded-full border-2 border-[#C9A84C] object-cover"
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = '/android-chrome-512x512.png';
+          }}
+        />
+        <span
           className="w-[45px] h-[45px] rounded-full border-2 border-[#C9A84C] object-cover"
         />
         <span

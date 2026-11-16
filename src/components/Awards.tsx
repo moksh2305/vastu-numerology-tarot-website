@@ -88,11 +88,11 @@ export default function Awards() {
             className="flex flex-row items-stretch relative"
           >
             {/* Image (Higher Z-Index, on the left) */}
-            <div className="w-[50%] lg:w-[45%] relative z-20 rounded-xl overflow-hidden shadow-2xl border-2 border-[#c9a84c]/40 bg-white">
+            <div className="w-[50%] lg:w-[45%] min-h-[320px] md:min-h-[420px] relative z-20 rounded-xl overflow-hidden shadow-2xl border-2 border-[#c9a84c]/40 bg-white">
               <img 
                 src="/award2.jpeg" 
                 alt="Featured in Hindustan Times" 
-                className="w-full h-full object-cover object-center"
+                className="w-full h-full object-cover object-top"
               />
             </div>
             
@@ -128,7 +128,7 @@ export default function Awards() {
             className="flex flex-row items-stretch relative"
           >
             {/* Image (Higher Z-Index, on the left) */}
-            <div className="w-[55%] lg:w-[60%] relative z-20 rounded-xl overflow-hidden shadow-2xl border border-[#c9a84c]/20 bg-white">
+            <div className="w-[55%] lg:w-[60%] min-h-[280px] md:min-h-[360px] relative z-20 rounded-xl overflow-hidden shadow-2xl border border-[#c9a84c]/20 bg-white">
               <img 
                 src="/award3.jpeg" 
                 alt="Bright Business Conclave" 

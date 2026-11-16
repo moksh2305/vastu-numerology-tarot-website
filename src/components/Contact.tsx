@@ -176,9 +176,12 @@ export default function Contact() {
           >
             <div className="absolute inset-0 bg-gradient-to-b from-transparent from-60% to-[rgba(26,18,8,0.4)] z-10 pointer-events-none"></div>
             <img 
-              src="https://bhumishah.netlify.app/bhumishahtest.jpg" 
+              src="/bhumishahtest.jpg" 
               alt="Bhumi Shah" 
               className="w-full h-full object-cover block"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = 'https://bhumishah.netlify.app/bhumishahtest.jpg';
+              }}
             />
           </motion.div>
         </div>

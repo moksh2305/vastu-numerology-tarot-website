@@ -38,11 +38,15 @@ export default function VastuTips() {
   const INTERVAL = 5000;
   
   useEffect(() => {
-    // Preload some images to mark as loaded
+    // Preload first tip image
     const img = new Image();
-    img.src = `https://drive.google.com/thumbnail?id=${TIPS_IDS[0]}&sz=w1200`;
+    img.src = '/tips/tip-1.jpg';
     img.onload = () => setImagesLoaded(true);
-    img.onerror = () => setImagesLoaded(true); // fall back to showing UI even if error
+    img.onerror = () => {
+      img.src = `https://drive.google.com/thumbnail?id=${TIPS_IDS[0]}&sz=w1200`;
+      img.onload = () => setImagesLoaded(true);
+      img.onerror = () => setImagesLoaded(true);
+    };
   }, []);
 
   useEffect(() => {
@@ -117,13 +121,16 @@ export default function VastuTips() {
           <AnimatePresence initial={false} mode="wait">
             <motion.img
               key={current}
-              src={`https://drive.google.com/thumbnail?id=${TIPS_IDS[current]}&sz=w1200`}
+              src={`/tips/tip-${current + 1}.jpg`}
               alt={`Vastu Tip ${current + 1}`}
               className="absolute inset-0 w-full h-full object-contain object-center"
               initial={{ opacity: 0, scale: 1.05 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = `https://drive.google.com/thumbnail?id=${TIPS_IDS[current]}&sz=w1200`;
+              }}
             />
           </AnimatePresence>
 

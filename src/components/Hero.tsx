@@ -23,9 +23,9 @@ function AnimatedNumber({ value, suffix }: { value: number, suffix: string }) {
 export default function Hero() {
   const [activeSlide, setActiveSlide] = useState(0);
   const slides = [
-    'https://bhumishah.netlify.app/vastubg1.jpeg',
-    'https://bhumishah.netlify.app/vastubg2.jpeg',
-    'https://bhumishah.netlify.app/compass2.jpeg',
+    '/vastubg1.jpeg',
+    '/vastubg2.jpeg',
+    '/compass2.jpeg',
   ];
 
   const particlesRef = useRef<HTMLDivElement>(null);
@@ -274,7 +274,14 @@ export default function Hero() {
         >
           <div className="hero-img-container relative w-[170px] h-[210px] md:w-[320px] md:h-[400px]">
             <div className="hero-img-frame"></div>
-            <img src={heroImg.src} alt="Bhumi Shah" className="absolute inset-0 w-full h-full object-cover rounded-lg z-10 shadow-lg" />
+            <img 
+              src={heroImg?.src || "/hero.jpg"} 
+              alt="Bhumi Shah" 
+              className="absolute inset-0 w-full h-full object-cover rounded-lg z-10 shadow-lg" 
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = '/hero.jpg';
+              }}
+            />
           </div>
           
           <div className="hidden md:flex flex-wrap gap-2 justify-center">
