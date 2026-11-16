@@ -89,9 +89,6 @@ export default function Navbar() {
           }}
         />
         <span
-          className="w-[45px] h-[45px] rounded-full border-2 border-[#C9A84C] object-cover"
-        />
-        <span
           className="font-serif text-[1.3rem] text-[#E8C96D] font-semibold tracking-wide"
           style={{ fontFamily: "'Cormorant Garamond', serif" }}
         >
